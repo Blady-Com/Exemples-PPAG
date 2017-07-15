@@ -1,0 +1,20 @@
+package body hello6.View is
+
+   ------------
+   -- Create --
+   ------------
+
+   overriding
+   procedure Create
+     (View   : in out Default_View_Type;
+      Parent : in out Gnoga.Gui.Base.Base_Type'Class;
+      ID     : in     String  := "")
+   is
+   begin
+      Gnoga.Gui.View.View_Type (View).Create (Parent, ID);
+      
+      View.Label_Text.Create (View);
+      View.Click_Button.Create (View, "Click Me");
+   end Create;
+
+end hello6.View;
