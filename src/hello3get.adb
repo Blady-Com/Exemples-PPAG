@@ -56,7 +56,7 @@ procedure hello3get is
       Mon_Bouton_Envoi.Create (Mon_Formulaire, "Envoyer");
       Mon_Bouton_RAZ.Create (Mon_Formulaire, "RAZ");
       Mon_Formulaire.New_Line;
-      Ma_Case_A_Cocher.Create (Mon_Formulaire, Name => "Case à Cocher");
+      Ma_Case_A_Cocher.Create (Mon_Formulaire, Value => "Cochée", Name => "Case à Cocher");
       Gnoga.Gui.Element.Form.Label_Access'(new Gnoga.Gui.Element.Form.Label_Type).Create
       (Mon_Formulaire, Ma_Case_A_Cocher, "Case à cocher");
       Mon_Formulaire.New_Line;
@@ -67,7 +67,7 @@ procedure hello3get is
       Gnoga.Gui.Element.Form.Label_Access'(new Gnoga.Gui.Element.Form.Label_Type).Create
       (Mon_Formulaire, Mon_Bouton_Radio2, "Choix 2");
       Mon_Formulaire.New_Line;
-      Mon_Image.Create (Mon_Formulaire, "favicon.ico", Name => "Image");
+      Mon_Image.Create (Mon_Formulaire, "favicon.ico", Value => "favicon.ico", Name => "Image");
       Mon_Formulaire.Put ("<- image.");
       Mon_Formulaire.New_Line;
       Mon_Texte.Create (Mon_Formulaire, Name => "Texte");

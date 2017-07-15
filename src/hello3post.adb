@@ -52,14 +52,14 @@ procedure hello3post is
       Mon_Texte_Multi.Create
       (Mon_Formulaire, Value => "Texte multi-ligne...", Name => "Texte multi-ligne");
       Mon_Formulaire.New_Line;
-      Mon_Champ_Cache.Create (Mon_Formulaire, Value => "Valeur0", Name => "Champ Caché");
+      Mon_Champ_Cache.Create (Mon_Formulaire, Value => "Valeur0", Name => "Champ Cache");
       Mon_Formulaire.Put ("<- Champ caché.");
       Mon_Formulaire.New_Line;
       Mon_Bouton.Create (Mon_Formulaire, "Annuler");
       Mon_Bouton_Envoi.Create (Mon_Formulaire, "Envoyer");
       Mon_Bouton_RAZ.Create (Mon_Formulaire, "RAZ");
       Mon_Formulaire.New_Line;
-      Ma_Case_A_Cocher.Create (Mon_Formulaire, Name => "Case à Cocher");
+      Ma_Case_A_Cocher.Create (Mon_Formulaire, Value => "Cochée", Name => "Case a Cocher");
       Gnoga.Gui.Element.Form.Label_Access'(new Gnoga.Gui.Element.Form.Label_Type).Create
       (Mon_Formulaire, Ma_Case_A_Cocher, "Case à cocher");
       Mon_Formulaire.New_Line;
@@ -70,7 +70,7 @@ procedure hello3post is
       Gnoga.Gui.Element.Form.Label_Access'(new Gnoga.Gui.Element.Form.Label_Type).Create
       (Mon_Formulaire, Mon_Bouton_Radio2, "Choix 2");
       Mon_Formulaire.New_Line;
-      Mon_Image.Create (Mon_Formulaire, "favicon.ico", Name => "Image");
+      Mon_Image.Create (Mon_Formulaire, "favicon.ico", Value => "favicon.ico", Name => "Image");
       Mon_Formulaire.Put ("<- image.");
       Mon_Formulaire.New_Line;
       Mon_Texte.Create (Mon_Formulaire, Name => "Texte");
@@ -110,7 +110,7 @@ procedure hello3post is
       Mon_Glisseur.Create (Mon_Formulaire, Name => "Glisseur");
       Mon_Etiquette.Create (Mon_Formulaire, Mon_Glisseur, "Glisseur");
       Mon_Formulaire.New_Line;
-      Ma_Selection.Create (Mon_Formulaire, Name => "Sélection");
+      Ma_Selection.Create (Mon_Formulaire, Name => "Selection");
       Ma_Selection.Add_Option ("Valeur1", "Champ 1");
       Mon_Option1.Create (Mon_Formulaire, Ma_Selection, "Valeur2", "Champ 2");
       Mon_Option_Groupe.Create (Mon_Formulaire, Ma_Selection, "Groupe 1");
@@ -124,7 +124,7 @@ procedure hello3post is
       pragma Unreferenced (URI);
    begin
       Accepted_Parameters :=
-        Ada.Strings.Unbounded.To_Unbounded_String ("Texte multi-ligne,Champ Caché,Case à Cocher,Boutons radio,Image,Texte,Mel,MDP,URL,Recherche,Couleur,Date,Heure,Mois,Semaine,Date heure locale,Nombre,Glisseur,Sélection,Image.x,Image.y");
+        Ada.Strings.Unbounded.To_Unbounded_String ("Texte multi-ligne,Champ Cache,Case a Cocher,Boutons radio,Image,Texte,Mel,MDP,URL,Recherche,Couleur,Date,Heure,Mois,Semaine,Date heure locale,Nombre,Glisseur,Selection,Image.x,Image.y");
    end On_Post_Request;
 
    procedure On_Post (URI : String; Parameters : in out Gnoga.Types.Data_Map_Type) is
