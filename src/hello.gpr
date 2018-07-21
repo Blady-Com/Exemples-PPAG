@@ -6,7 +6,8 @@ project Hello is
    for Object_Dir use "../obj";
    for Exec_Dir use "../bin";
    for Main use ("hello.adb", "hello2.adb", "hello3.adb", "hello3get.adb", "hello3post.adb", "hello3evt.adb",
-                "hello4.adb", "hello5_list.adb", "hello5_iframe.adb", "hello5_av.adb", "hello6-main.adb");
+                 "hello4.adb", "hello5_list.adb", "hello5_iframe.adb", "hello5_av.adb", "hello6-main.adb",
+                 "hello7_session.adb", "hello7_local.adb");
 
    package Compiler is
       for Default_Switches ("Ada") use ("-gnatwa", "-g", "-gnata", "-gnatq", "-gnatQ", "-gnato", "-gnatf", "-gnatW8");
