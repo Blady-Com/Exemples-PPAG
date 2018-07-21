@@ -1,6 +1,3 @@
-with Gnoga.Gui.Window;
-with Gnoga.Application.Multi_Connect;
-
 package hello6.Controller is
    pragma Elaborate_Body;
 --     procedure Default

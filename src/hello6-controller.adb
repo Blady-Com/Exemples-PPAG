@@ -4,6 +4,8 @@ with Gnoga.Types;
 with Gnoga.Gui.View;
 
 with hello6.View;
+with Gnoga.Application.Multi_Connect;
+with Gnoga.Gui.Window;
 
 package body hello6.Controller is
 
@@ -15,7 +17,7 @@ package body hello6.Controller is
    procedure On_Click1 (Object : in out Gnoga.Gui.Base.Base_Type'Class);
    
    procedure On_Click1 (Object : in out Gnoga.Gui.Base.Base_Type'Class) is
-      View : hello6.View.Default_View_Access := 
+      View : constant hello6.View.Default_View_Access := 
                hello6.View.Default_View_Access (Object.Parent);
    begin
       View.Label_Text.Put_Line ("Click1");
@@ -31,7 +33,7 @@ package body hello6.Controller is
    procedure On_Click3 (Object : in out Gnoga.Gui.Base.Base_Type'Class);
    
    procedure On_Click3 (Object : in out Gnoga.Gui.Base.Base_Type'Class) is
-      Window : Gnoga.Gui.Window.Window_Access :=
+      Window : constant Gnoga.Gui.Window.Window_Access :=
         Gnoga.Gui.Window.Window_Access (Object.Parent.Parent);
       View : Gnoga.Gui.View.View_Type;
    begin
@@ -58,7 +60,8 @@ package body hello6.Controller is
       Connection  : access
         Gnoga.Application.Multi_Connect.Connection_Holder_Type)
    is
-      App_Data : App_Data_Access := new App_Data_Type;
+      pragma Unreferenced (Connection);
+      App_Data : constant App_Data_Access := new App_Data_Type;
    begin
       Main_Window.Connection_Data (App_Data);
       App_Data.View.Create (Main_Window);
@@ -70,9 +73,10 @@ package body hello6.Controller is
       Connection  : access
         Gnoga.Application.Multi_Connect.Connection_Holder_Type)
    is
-      View : hello6.View.Default_View_Access :=
+      pragma Unreferenced (Connection);
+      View : constant hello6.View.Default_View_Access :=
         new hello6.View.Default_View_Type;
-      Close_Button : Gnoga.Gui.Element.Common.Button_Access :=
+      Close_Button : constant Gnoga.Gui.Element.Common.Button_Access :=
         new Gnoga.Gui.Element.Common.Button_Type;
    begin
       View.Dynamic;
