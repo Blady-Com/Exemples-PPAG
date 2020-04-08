@@ -46,11 +46,12 @@ procedure hello3post is
       Mon_Option1          : Gnoga.Gui.Element.Form.Option_Type;
       Mon_Option2          : Gnoga.Gui.Element.Form.Option_Type;
       Mon_Option_Groupe    : Gnoga.Gui.Element.Form.Option_Group_Type;
+      Mon_Fichier          : Gnoga.Gui.Element.Form.File_Type;
+      Mon_Téléphone        : Gnoga.Gui.Element.Form.Tel_Type;
    begin
       Main_View.Create (Main_Window);
       Mon_Formulaire.Create (Main_View, "/resultats", Gnoga.Gui.Element.Form.Post);
-      Mon_Texte_Multi.Create
-      (Mon_Formulaire, Value => "Texte multi-ligne...", Name => "Texte multi-ligne");
+      Mon_Texte_Multi.Create (Mon_Formulaire, Value => "Texte multi-ligne...", Name => "Texte multi-ligne");
       Mon_Formulaire.New_Line;
       Mon_Champ_Cache.Create (Mon_Formulaire, Value => "Valeur0", Name => "Champ Caché");
       Mon_Formulaire.Put ("<- Champ caché.");
@@ -61,14 +62,14 @@ procedure hello3post is
       Mon_Formulaire.New_Line;
       Ma_Case_A_Cocher.Create (Mon_Formulaire, Value => "Cochée", Name => "Case à Cocher");
       Gnoga.Gui.Element.Form.Label_Access'(new Gnoga.Gui.Element.Form.Label_Type).Create
-      (Mon_Formulaire, Ma_Case_A_Cocher, "Case à cocher");
+        (Mon_Formulaire, Ma_Case_A_Cocher, "Case à cocher");
       Mon_Formulaire.New_Line;
       Mon_Bouton_Radio1.Create (Mon_Formulaire, Value => "Choix1", Name => "Boutons radio");
       Gnoga.Gui.Element.Form.Label_Access'(new Gnoga.Gui.Element.Form.Label_Type).Create
-      (Mon_Formulaire, Mon_Bouton_Radio1, "Choix 1");
+        (Mon_Formulaire, Mon_Bouton_Radio1, "Choix 1");
       Mon_Bouton_Radio2.Create (Mon_Formulaire, True, Value => "Choix2", Name => "Boutons radio");
       Gnoga.Gui.Element.Form.Label_Access'(new Gnoga.Gui.Element.Form.Label_Type).Create
-      (Mon_Formulaire, Mon_Bouton_Radio2, "Choix 2");
+        (Mon_Formulaire, Mon_Bouton_Radio2, "Choix 2");
       Mon_Formulaire.New_Line;
       Mon_Image.Create (Mon_Formulaire, "favicon.ico", Value => "favicon.ico", Name => "Image");
       Mon_Formulaire.Put ("<- image.");
@@ -77,11 +78,13 @@ procedure hello3post is
       Mon_Formulaire.Put ("<- texte sur une ligne.");
       Mon_Formulaire.New_Line;
       Mon_Mel.Create (Mon_Formulaire, Value => "mel@moi.org", Name => "Mel");
+      Mon_Formulaire.Put ("<- courriel.");
       Mon_Formulaire.New_Line;
       Mon_Mot_Passe.Create (Mon_Formulaire, Value => "mdp", Name => "MDP");
       Mon_Formulaire.Put ("<- mot de passe.");
       Mon_Formulaire.New_Line;
       Mon_URL.Create (Mon_Formulaire, Value => "http://gnoga.com", Name => "URL");
+      Mon_Formulaire.Put ("<- URL.");
       Mon_Formulaire.New_Line;
       Ma_Recherche.Create (Mon_Formulaire, Value => "gnoga", Name => "Recherche");
       Mon_Formulaire.Put ("<- recherche.");
@@ -115,6 +118,10 @@ procedure hello3post is
       Mon_Option1.Create (Mon_Formulaire, Ma_Selection, "Valeur2", "Champ 2");
       Mon_Option_Groupe.Create (Mon_Formulaire, Ma_Selection, "Groupe 1");
       Mon_Option2.Create (Mon_Formulaire, Mon_Option_Groupe, "Valeur3", "Champ 3");
+      Mon_Formulaire.New_Line;
+      Mon_Fichier.Create (Mon_Formulaire, Name => "Fichier");
+      Mon_Formulaire.New_Line;
+      Mon_Téléphone.Create (Mon_Formulaire, Value => "(33) 699989795", Name => "Téléphone");
    end Formulaires;
 
    procedure On_Post_Request
@@ -124,10 +131,16 @@ procedure hello3post is
       pragma Unreferenced (URI);
    begin
       Accepted_Parameters :=
-        Ada.Strings.Unbounded.To_Unbounded_String ("Texte multi-ligne,Champ Caché,Case à Cocher,Boutons radio,Image,Texte,Mel,MDP,URL,Recherche,Couleur,Date,Heure,Mois,Semaine,Date heure locale,Nombre,Glisseur,Sélection,Image.x,Image.y");
+        Ada.Strings.Unbounded.To_Unbounded_String
+          ("Texte multi-ligne,Champ Caché,Case à Cocher,Boutons radio,Image," &
+           "Texte,Mel,MDP,URL,Recherche,Couleur,Date,Heure,Mois,Semaine," &
+           "Date heure locale,Nombre,Glisseur,Sélection,Image.x,Image.y,Fichier,Téléphone");
    end On_Post_Request;
 
-   procedure On_Post (URI : String; Parameters : in out Gnoga.Types.Data_Map_Type) is
+   procedure On_Post
+     (URI        :        String;
+      Parameters : in out Gnoga.Types.Data_Map_Type)
+   is
       pragma Unreferenced (URI);
    begin
       Last_Parameters := Parameters;
@@ -144,10 +157,7 @@ procedure hello3post is
       for C in Last_Parameters.Iterate loop
          begin
             Main_View.Put_Line
-            ("POST parameter: " &
-             Gnoga.Types.Data_Maps.Key (C) &
-             " = " &
-             Gnoga.Types.Data_Maps.Element (C));
+              ("POST parameter: " & Gnoga.Types.Data_Maps.Key (C) & " = " & Gnoga.Types.Data_Maps.Element (C));
          end;
       end loop;
       Last_Parameters.Clear;
@@ -160,9 +170,7 @@ begin
    --     Gnoga.Application.Open_URL ("http://127.0.0.1:8080");
    Gnoga.Application.Multi_Connect.Initialize;
    Gnoga.Application.Multi_Connect.On_Connect_Handler (Formulaires'Unrestricted_Access);
-   Gnoga.Application.Multi_Connect.On_Connect_Handler
-     (Resultats'Unrestricted_Access,
-      "/resultats");
+   Gnoga.Application.Multi_Connect.On_Connect_Handler (Resultats'Unrestricted_Access, "/resultats");
 
    Gnoga.Server.Connection.On_Post_Handler (On_Post'Unrestricted_Access);
    Gnoga.Server.Connection.On_Post_Request_Handler (On_Post_Request'Unrestricted_Access);

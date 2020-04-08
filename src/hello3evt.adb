@@ -40,6 +40,8 @@ procedure hello3evt is
       Mon_Option1          : Gnoga.Gui.Element.Form.Option_Type;
       Mon_Option2          : Gnoga.Gui.Element.Form.Option_Type;
       Mon_Option_Groupe    : Gnoga.Gui.Element.Form.Option_Group_Type;
+      Mon_Fichier          : Gnoga.Gui.Element.Form.File_Type;
+      Mon_Téléphone        : Gnoga.Gui.Element.Form.Tel_Type;
    end record;
    type App_Access is access all App_Data;
 
@@ -54,12 +56,9 @@ procedure hello3evt is
    begin
       App.Main_View.Put_Line ("EVT parameter: Mon_Texte_Multi = " & App.Mon_Texte_Multi.Value);
       App.Main_View.Put_Line ("EVT parameter: Mon_Champ_Cache = " & App.Mon_Champ_Cache.Value);
-      App.Main_View.Put_Line
-      ("EVT parameter: Ma_Case_A_Cocher = " & App.Ma_Case_A_Cocher.Checked'Img);
-      App.Main_View.Put_Line
-      ("EVT parameter: Mon_Bouton_Radio1 = " & App.Mon_Bouton_Radio1.Checked'Img);
-      App.Main_View.Put_Line
-      ("EVT parameter: Mon_Bouton_Radio2 = " & App.Mon_Bouton_Radio2.Checked'Img);
+      App.Main_View.Put_Line ("EVT parameter: Ma_Case_A_Cocher = " & App.Ma_Case_A_Cocher.Checked'Img);
+      App.Main_View.Put_Line ("EVT parameter: Mon_Bouton_Radio1 = " & App.Mon_Bouton_Radio1.Checked'Img);
+      App.Main_View.Put_Line ("EVT parameter: Mon_Bouton_Radio2 = " & App.Mon_Bouton_Radio2.Checked'Img);
       App.Main_View.Put_Line ("EVT parameter: Mon_Image = " & App.Mon_Image.Source);
       App.Main_View.Put_Line ("EVT parameter: Mon_Texte = " & App.Mon_Texte.Value);
       App.Main_View.Put_Line ("EVT parameter: Mon_Mel = " & App.Mon_Mel.Value);
@@ -71,11 +70,12 @@ procedure hello3evt is
       App.Main_View.Put_Line ("EVT parameter: Mon_Heure = " & App.Mon_Heure.Value);
       App.Main_View.Put_Line ("EVT parameter: Mon_Mois = " & App.Mon_Mois.Value);
       App.Main_View.Put_Line ("EVT parameter: Ma_Semaine = " & App.Ma_Semaine.Value);
-      App.Main_View.Put_Line
-      ("EVT parameter: Ma_Date_Heure_Locale = " & App.Ma_Date_Heure_Locale.Value);
+      App.Main_View.Put_Line ("EVT parameter: Ma_Date_Heure_Locale = " & App.Ma_Date_Heure_Locale.Value);
       App.Main_View.Put_Line ("EVT parameter: Mon_Nombre = " & App.Mon_Nombre.Value);
       App.Main_View.Put_Line ("EVT parameter: Mon_Glisseur = " & App.Mon_Glisseur.Value);
       App.Main_View.Put_Line ("EVT parameter: Ma_Selection = " & App.Ma_Selection.Value);
+      App.Main_View.Put_Line ("EVT parameter: Mon_Fichier = " & App.Mon_Fichier.File_Name);
+      App.Main_View.Put_Line ("EVT parameter: Mon_Téléphone = " & App.Mon_Téléphone.Value);
    end On_Submit;
 
    procedure On_Change (Object : in out Gnoga.Gui.Base.Base_Type'Class) is
@@ -102,14 +102,14 @@ procedure hello3evt is
       App.Mon_Formulaire.New_Line;
       App.Ma_Case_A_Cocher.Create (App.Mon_Formulaire);
       Gnoga.Gui.Element.Form.Label_Access'(new Gnoga.Gui.Element.Form.Label_Type).Create
-      (App.Mon_Formulaire, App.Ma_Case_A_Cocher, "Case à cocher");
+        (App.Mon_Formulaire, App.Ma_Case_A_Cocher, "Case à cocher");
       App.Mon_Formulaire.New_Line;
       App.Mon_Bouton_Radio1.Create (App.Mon_Formulaire, Value => "Choix1", Name => "Choix");
       Gnoga.Gui.Element.Form.Label_Access'(new Gnoga.Gui.Element.Form.Label_Type).Create
-      (App.Mon_Formulaire, App.Mon_Bouton_Radio1, "Choix 1");
+        (App.Mon_Formulaire, App.Mon_Bouton_Radio1, "Choix 1");
       App.Mon_Bouton_Radio2.Create (App.Mon_Formulaire, True, Value => "Choix2", Name => "Choix");
       Gnoga.Gui.Element.Form.Label_Access'(new Gnoga.Gui.Element.Form.Label_Type).Create
-      (App.Mon_Formulaire, App.Mon_Bouton_Radio2, "Choix 2");
+        (App.Mon_Formulaire, App.Mon_Bouton_Radio2, "Choix 2");
       App.Mon_Formulaire.New_Line;
       App.Mon_Image.Create (App.Mon_Formulaire, "favicon.ico");
       App.Mon_Formulaire.Put ("<- image.");
@@ -118,11 +118,13 @@ procedure hello3evt is
       App.Mon_Formulaire.Put ("<- texte sur une ligne.");
       App.Mon_Formulaire.New_Line;
       App.Mon_Mel.Create (App.Mon_Formulaire, Value => "mel@moi.org");
+      App.Mon_Formulaire.Put ("<- courriel.");
       App.Mon_Formulaire.New_Line;
       App.Mon_Mot_Passe.Create (App.Mon_Formulaire, Value => "mdp");
       App.Mon_Formulaire.Put ("<- mot de passe.");
       App.Mon_Formulaire.New_Line;
       App.Mon_URL.Create (App.Mon_Formulaire, Value => "http://gnoga.com");
+      App.Mon_Formulaire.Put ("<- URL.");
       App.Mon_Formulaire.New_Line;
       App.Ma_Recherche.Create (App.Mon_Formulaire, Value => "gnoga");
       App.Mon_Formulaire.Put ("<- recherche.");
@@ -157,6 +159,11 @@ procedure hello3evt is
       App.Mon_Option1.Create (App.Mon_Formulaire, App.Ma_Selection, "Valeur2", "Champ 2");
       App.Mon_Option_Groupe.Create (App.Mon_Formulaire, App.Ma_Selection, "Groupe 1");
       App.Mon_Option2.Create (App.Mon_Formulaire, App.Mon_Option_Groupe, "Valeur3", "Champ 3");
+      App.Mon_Formulaire.New_Line;
+      App.Mon_Fichier.Create (App.Mon_Formulaire);
+      App.Mon_Formulaire.New_Line;
+      App.Mon_Téléphone.Create (App.Mon_Formulaire, Value => "(33) 699989795");
+      App.Mon_Formulaire.Put ("<- numéro de téléphone.");
    end Formulaires;
 
 begin

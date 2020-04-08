@@ -64,6 +64,8 @@ procedure hello3 is
       Mon_Option1          : Gnoga.Gui.Element.Form.Option_Type;
       Mon_Option2          : Gnoga.Gui.Element.Form.Option_Type;
       Mon_Option_Groupe    : Gnoga.Gui.Element.Form.Option_Group_Type;
+      Mon_Fichier          : Gnoga.Gui.Element.Form.File_Type;
+      Mon_Téléphone        : Gnoga.Gui.Element.Form.Tel_Type;
    begin
       Mon_Formulaire.Create (Main_View);
       Mon_Texte_Multi.Create (Mon_Formulaire, Value => "Texte multi-ligne...");
@@ -77,14 +79,14 @@ procedure hello3 is
       Mon_Formulaire.New_Line;
       Ma_Case_A_Cocher.Create (Mon_Formulaire);
       Gnoga.Gui.Element.Form.Label_Access'(new Gnoga.Gui.Element.Form.Label_Type).Create
-      (Mon_Formulaire, Ma_Case_A_Cocher, "Case à cocher");
+        (Mon_Formulaire, Ma_Case_A_Cocher, "Case à cocher");
       Mon_Formulaire.New_Line;
       Mon_Bouton_Radio1.Create (Mon_Formulaire, Value => "Choix1", Name => "Choix");
       Gnoga.Gui.Element.Form.Label_Access'(new Gnoga.Gui.Element.Form.Label_Type).Create
-      (Mon_Formulaire, Mon_Bouton_Radio1, "Choix 1");
+        (Mon_Formulaire, Mon_Bouton_Radio1, "Choix 1");
       Mon_Bouton_Radio2.Create (Mon_Formulaire, True, Value => "Choix2", Name => "Choix");
       Gnoga.Gui.Element.Form.Label_Access'(new Gnoga.Gui.Element.Form.Label_Type).Create
-      (Mon_Formulaire, Mon_Bouton_Radio2, "Choix 2");
+        (Mon_Formulaire, Mon_Bouton_Radio2, "Choix 2");
       Mon_Formulaire.New_Line;
       Mon_Image.Create (Mon_Formulaire, "favicon.ico");
       Mon_Formulaire.Put ("<- image.");
@@ -93,11 +95,13 @@ procedure hello3 is
       Mon_Formulaire.Put ("<- texte sur une ligne.");
       Mon_Formulaire.New_Line;
       Mon_Mel.Create (Mon_Formulaire, Value => "mel@moi.org");
+      Mon_Formulaire.Put ("<- courriel.");
       Mon_Formulaire.New_Line;
       Mon_Mot_Passe.Create (Mon_Formulaire, Value => "mdp");
       Mon_Formulaire.Put ("<- mot de passe.");
       Mon_Formulaire.New_Line;
       Mon_URL.Create (Mon_Formulaire, Value => "http://gnoga.com");
+      Mon_Formulaire.Put ("<- URL.");
       Mon_Formulaire.New_Line;
       Ma_Recherche.Create (Mon_Formulaire, Value => "gnoga");
       Mon_Formulaire.Put ("<- recherche.");
@@ -131,6 +135,10 @@ procedure hello3 is
       Mon_Option1.Create (Mon_Formulaire, Ma_Selection, "Valeur2", "Champ 2");
       Mon_Option_Groupe.Create (Mon_Formulaire, Ma_Selection, "Groupe 1");
       Mon_Option2.Create (Mon_Formulaire, Mon_Option_Groupe, "Valeur3", "Champ 3");
+      Mon_Formulaire.New_Line;
+      Mon_Fichier.Create (Mon_Formulaire, Name => "Fichier");
+      Mon_Formulaire.New_Line;
+      Mon_Téléphone.Create (Mon_Formulaire, Value => "(33) 699989795", Name => "Téléphone");
    end Formulaires;
 
 begin
