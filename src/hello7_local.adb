@@ -1,6 +1,3 @@
-with Ada.Exceptions;
-with Ada.Strings.Unbounded;
-
 with Gnoga.Types;
 with Gnoga.Gui.Window;
 with Gnoga.Gui.Base;
@@ -11,6 +8,8 @@ with Gnoga.Application.Multi_Connect;
 with Gnoga.Client.Storage;
 
 procedure hello7_local is
+
+   use all type Gnoga.String;
 
    type App_Data_Type is new Gnoga.Types.Connection_Data_Type with record
       Main_View       : Gnoga.Gui.View.Console.Console_View_Type;
@@ -39,10 +38,9 @@ procedure hello7_local is
      (Object        : in out Gnoga.Gui.Base.Base_Type'Class;
       Storage_Event : in     Gnoga.Gui.Window.Storage_Event_Record)
    is
-      use Ada.Strings.Unbounded;
    begin
-      if To_String (Storage_Event.Name) = "TEXT" then
-         App_Data_Access (Object.Connection_Data).Mon_Texte_Multi.Value (To_String (Storage_Event.New_Value));
+      if Storage_Event.Name = "TEXT" then
+         App_Data_Access (Object.Connection_Data).Mon_Texte_Multi.Value (Storage_Event.New_Value);
       end if;
    end On_Modif_Stockage;
 
@@ -77,5 +75,5 @@ begin
    Gnoga.Application.Multi_Connect.Message_Loop;
 exception
    when E : others =>
-      Gnoga.Log (Ada.Exceptions.Exception_Name (E) & " - " & Ada.Exceptions.Exception_Message (E));
+      Gnoga.Log (E);
 end hello7_local;

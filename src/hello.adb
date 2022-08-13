@@ -1,4 +1,3 @@
-with Ada.Exceptions;
 with Ada.Long_Long_Float_Text_IO;
 
 with Gnoga.Application.Singleton;
@@ -7,6 +6,8 @@ with Gnoga.Gui.View;
 with Gnoga.Gui.Base;
 with Gnoga.Gui.Element.Common;
 with Gnoga.Gui.Element.Form;
+
+with UXStrings.Formatting;
 
 procedure hello is
    Main_Window     : Gnoga.Gui.Window.Window_Type;
@@ -23,6 +24,10 @@ procedure hello is
    Dec_Range_Label : Gnoga.Gui.Element.Form.Label_Type;
    Dec_Value_Label : Gnoga.Gui.Element.Form.Label_Type;
 
+   use all type Gnoga.String;
+
+   subtype String is Gnoga.String;
+
    procedure On_Quit (Object : in out Gnoga.Gui.Base.Base_Type'Class) is
       pragma Unreferenced (Object);
    begin
@@ -31,37 +36,43 @@ procedure hello is
 
    procedure On_Factorial (Object : in out Gnoga.Gui.Base.Base_Type'Class) is
       pragma Unreferenced (Object);
-      function Factorielle (N : Natural) return Long_Long_Integer is
+      function Format is new UXStrings.Formatting.Integer_Format (Long_Long_Integer);
+      function Format (V : Long_Long_Float) return String is
+         S : Standard.String (1 .. 20);
+      begin
+         Ada.Long_Long_Float_Text_IO.Put (S, V, Dec_Range.Value, 6);
+         return From_Latin_1 (S);
+      end;
+
+      function Factorielle_LLI (N : Natural) return Long_Long_Integer is
          F : Long_Long_Integer := 1;
       begin
          for I in 2 .. N loop
             F := F * Long_Long_Integer (I);
          end loop;
          return F;
-      end Factorielle;
-      function Factorielle (N : Natural) return String is
+      end Factorielle_LLI;
+      function Factorielle_LLF (N : Natural) return Long_Long_Float is
          F : Long_Long_Float := 1.0;
-         S : String (1 .. 20);
       begin
          for I in 2 .. N loop
             F := F * Long_Long_Float (I);
          end loop;
-         Ada.Long_Long_Float_Text_IO.Put (S, F, Dec_Range.Value, 6);
-         return S;
-      end Factorielle;
+         return F;
+      end Factorielle_LLF;
    begin
       if not Dec_Check_Box.Checked then
          Result_Label.Text
          ("Résultat " &
           Input_Text.Value &
           "! = " &
-          Long_Long_Integer'Image (Factorielle (Natural'Value (Input_Text.Value))));
+          Format (Factorielle_LLI (Gnoga.Value (Input_Text.Value))));
       else
          Result_Label.Text
          ("Résultat " &
           Input_Text.Value &
           "! = " &
-          Factorielle (Natural'Value (Input_Text.Value)));
+          Format (Factorielle_LLF (Gnoga.Value (Input_Text.Value))));
       end if;
    exception
       when others =>
@@ -118,5 +129,5 @@ begin
    Gnoga.Application.Singleton.Message_Loop;
 exception
    when E : others =>
-      Gnoga.Log (Ada.Exceptions.Exception_Name (E) & " - " & Ada.Exceptions.Exception_Message (E));
+      Gnoga.Log (E);
 end hello;

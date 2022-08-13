@@ -1,4 +1,3 @@
-with Ada.Exceptions;
 with Ada.Numerics.Discrete_Random;
 with Ada.Containers.Indefinite_Ordered_Maps;
 
@@ -10,13 +9,18 @@ with Gnoga.Gui.Element.Common;
 with Gnoga.Application.Multi_Connect;
 with Gnoga.Client.Storage;
 
-procedure hello7_session is
+with UXStrings;
 
-   subtype Char is Character range 'a' .. 'z';
+procedure hello7_session is
+   use all type Gnoga.String;
+
+   subtype String is Gnoga.String;
+
+   subtype Char is UXStrings.Unicode_Character range 'a' .. 'z';
    package Char_Random is new Ada.Numerics.Discrete_Random (Char);
    Char_Generator : Char_Random.Generator;
 
-   package ID_Map is new Ada.Containers.Indefinite_Ordered_Maps (String, Character);
+   package ID_Map is new Ada.Containers.Indefinite_Ordered_Maps (String, Char);
    Text_Map : ID_Map.Map;
 
    type App_Data_Type is new Gnoga.Types.Connection_Data_Type with record
@@ -68,5 +72,5 @@ begin
    Gnoga.Application.Multi_Connect.Message_Loop;
 exception
    when E : others =>
-      Gnoga.Log (Ada.Exceptions.Exception_Name (E) & " - " & Ada.Exceptions.Exception_Message (E));
+      Gnoga.Log (E);
 end hello7_session;

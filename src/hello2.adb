@@ -1,5 +1,3 @@
-with Ada.Exceptions;
-
 with Gnoga.Application.Singleton;
 with Gnoga.Gui.Window;
 with Gnoga.Gui.View.Console;
@@ -45,8 +43,5 @@ begin
    Gnoga.Application.Singleton.Message_Loop;
 exception
    when E : others =>
-      Gnoga.Log
-        (Ada.Exceptions.Exception_Name (E) &
-         " - " &
-         Ada.Exceptions.Exception_Message (E));
+      Gnoga.Log (E);
 end hello2;

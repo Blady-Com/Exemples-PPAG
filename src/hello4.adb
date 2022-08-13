@@ -1,5 +1,3 @@
-with Ada.Exceptions;
-
 with Gnoga.Application.Singleton;
 with Gnoga.Gui.Window;
 with Gnoga.Gui.View;
@@ -11,7 +9,6 @@ with Gnoga.Types.Colors;
 with Gnoga.Gui.Element;
 with Gnoga.Gui.Element.Common;
 use Gnoga.Gui.View.Grid;
-use Gnoga.Gui.Element;
 use Gnoga.Types.Colors;
 
 procedure hello4 is
@@ -54,19 +51,19 @@ begin
    Docker_View.Fill_Parent;
    DL.Create (Docker_View, "Hello World! Dock left");
    DL.Background_Color (To_String (Light_Pink));
-   Docker_View.Left_Dock (DL'Access);
+   Docker_View.Left_Dock (DL'Unchecked_Access);
    DR.Create (Docker_View, "Hello World! Dock right");
    DR.Background_Color (To_String (Light_Coral));
-   Docker_View.Right_Dock (DR'Access);
+   Docker_View.Right_Dock (DR'Unchecked_Access);
    DT.Create (Docker_View, "Hello World! Dock top");
    DT.Background_Color (To_String (Light_Sea_Green));
-   Docker_View.Top_Dock (DT'Access);
+   Docker_View.Top_Dock (DT'Unchecked_Access);
    DB.Create (Docker_View, "Hello World! Dock bottom");
    DB.Background_Color (To_String (Light_Yellow));
-   Docker_View.Bottom_Dock (DB'Access);
+   Docker_View.Bottom_Dock (DB'Unchecked_Access);
    DF.Create (Docker_View, "Hello World! Dock fill");
    DF.Background_Color (To_String (Light_Gray));
-   Docker_View.Fill_Dock (DF'Access);
+   Docker_View.Fill_Dock (DF'Unchecked_Access);
 
    Card_View.Create (Main_View.Panel (5, 1).all);
    Card_View.Fill_Parent;
@@ -83,5 +80,5 @@ begin
    Gnoga.Application.Singleton.Message_Loop;
 exception
    when E : others =>
-      Gnoga.Log (Ada.Exceptions.Exception_Name (E) & " - " & Ada.Exceptions.Exception_Message (E));
+      Gnoga.Log (E);
 end hello4;

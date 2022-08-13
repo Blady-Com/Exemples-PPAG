@@ -1,5 +1,3 @@
-with Ada.Exceptions;
-
 with Gnoga.Gui.Window;
 with Gnoga.Gui.View.Console;
 with Gnoga.Gui.Element.Form;
@@ -8,6 +6,8 @@ with Gnoga.Gui.Location;
 with Gnoga.Application.Multi_Connect;
 
 procedure hello3get is
+
+   use all type Gnoga.String;
 
    procedure Formulaires
      (Main_Window : in out Gnoga.Gui.Window.Window_Type'Class;
@@ -154,5 +154,5 @@ begin
    Gnoga.Application.Multi_Connect.Message_Loop;
 exception
    when E : others =>
-      Gnoga.Log (Ada.Exceptions.Exception_Name (E) & " - " & Ada.Exceptions.Exception_Message (E));
+      Gnoga.Log (E);
 end hello3get;

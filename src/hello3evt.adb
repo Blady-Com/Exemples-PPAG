@@ -1,5 +1,3 @@
-with Ada.Exceptions;
-
 with Gnoga.Application.Singleton;
 with Gnoga.Gui.Window;
 with Gnoga.Gui.View.Console;
@@ -8,6 +6,8 @@ with Gnoga.Types;
 with Gnoga.Gui.Base;
 
 procedure hello3evt is
+   use all type Gnoga.String;
+
    Main_Window : Gnoga.Gui.Window.Window_Type;
 
    type App_Data is new Gnoga.Types.Connection_Data_Type with record
@@ -56,9 +56,9 @@ procedure hello3evt is
    begin
       App.Main_View.Put_Line ("EVT parameter: Mon_Texte_Multi = " & App.Mon_Texte_Multi.Value);
       App.Main_View.Put_Line ("EVT parameter: Mon_Champ_Cache = " & App.Mon_Champ_Cache.Value);
-      App.Main_View.Put_Line ("EVT parameter: Ma_Case_A_Cocher = " & App.Ma_Case_A_Cocher.Checked'Img);
-      App.Main_View.Put_Line ("EVT parameter: Mon_Bouton_Radio1 = " & App.Mon_Bouton_Radio1.Checked'Img);
-      App.Main_View.Put_Line ("EVT parameter: Mon_Bouton_Radio2 = " & App.Mon_Bouton_Radio2.Checked'Img);
+      App.Main_View.Put_Line ("EVT parameter: Ma_Case_A_Cocher = " & Gnoga.Image (App.Ma_Case_A_Cocher.Checked));
+      App.Main_View.Put_Line ("EVT parameter: Mon_Bouton_Radio1 = " & Gnoga.Image (App.Mon_Bouton_Radio1.Checked));
+      App.Main_View.Put_Line ("EVT parameter: Mon_Bouton_Radio2 = " & Gnoga.Image (App.Mon_Bouton_Radio2.Checked));
       App.Main_View.Put_Line ("EVT parameter: Mon_Image = " & App.Mon_Image.Source);
       App.Main_View.Put_Line ("EVT parameter: Mon_Texte = " & App.Mon_Texte.Value);
       App.Main_View.Put_Line ("EVT parameter: Mon_Mel = " & App.Mon_Mel.Value);
@@ -178,5 +178,5 @@ begin
    Gnoga.Application.Singleton.Message_Loop;
 exception
    when E : others =>
-      Gnoga.Log (Ada.Exceptions.Exception_Name (E) & " - " & Ada.Exceptions.Exception_Message (E));
+      Gnoga.Log (E);
 end hello3evt;

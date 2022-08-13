@@ -3,7 +3,9 @@ with Gnoga.Gui.View;
 with Gnoga.Gui.Element.Common;
 
 package hello6.View is
-   
+
+   subtype String is Gnoga.String;
+
    type Default_View_Type is new Gnoga.Gui.View.View_Type with
       record
          Label_Text   : Gnoga.Gui.View.View_Type;

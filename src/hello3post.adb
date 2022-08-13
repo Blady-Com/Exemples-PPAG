@@ -1,6 +1,3 @@
-with Ada.Exceptions;
-with Ada.Strings.Unbounded;
-
 with Gnoga.Gui.Window;
 with Gnoga.Gui.View.Console;
 with Gnoga.Gui.Element.Form;
@@ -9,6 +6,10 @@ with Gnoga.Application.Multi_Connect;
 with Gnoga.Server.Connection;
 
 procedure hello3post is
+
+   use all type Gnoga.String;
+
+   subtype String is Gnoga.String;
 
    Last_Parameters : Gnoga.Types.Data_Map_Type;
 
@@ -126,15 +127,14 @@ procedure hello3post is
 
    procedure On_Post_Request
      (URI                 : in     String;
-      Accepted_Parameters :    out Ada.Strings.Unbounded.Unbounded_String)
+      Accepted_Parameters :    out String)
    is
       pragma Unreferenced (URI);
    begin
       Accepted_Parameters :=
-        Ada.Strings.Unbounded.To_Unbounded_String
-          ("Texte multi-ligne,Champ Caché,Case à Cocher,Boutons radio,Image," &
+           "Texte multi-ligne,Champ Caché,Case à Cocher,Boutons radio,Image," &
            "Texte,Mel,MDP,URL,Recherche,Couleur,Date,Heure,Mois,Semaine," &
-           "Date heure locale,Nombre,Glisseur,Sélection,Image.x,Image.y,Fichier,Téléphone");
+           "Date heure locale,Nombre,Glisseur,Sélection,Image.x,Image.y,Fichier,Téléphone";
    end On_Post_Request;
 
    procedure On_Post
@@ -178,5 +178,5 @@ begin
    Gnoga.Application.Multi_Connect.Message_Loop;
 exception
    when E : others =>
-      Gnoga.Log (Ada.Exceptions.Exception_Name (E) & " - " & Ada.Exceptions.Exception_Message (E));
+      Gnoga.Log (E);
 end hello3post;
