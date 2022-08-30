@@ -1,0 +1,33 @@
+with "lib_gnoga";
+
+project PPAG is
+   for Languages use ("Ada");
+   for Source_Dirs use ("src");
+   for Object_Dir use "obj";
+   for Exec_Dir use "bin";
+   for Main use ("hello.adb", "hello2.adb", "hello3.adb", "hello3get.adb", "hello3post.adb", "hello3post_file.adb",
+                 "hello3evt.adb","hello4.adb", "hello5_list.adb", "hello5_iframe.adb", "hello5_av.adb", "hello6-main.adb",
+                 "hello7_session.adb", "hello7_local.adb");
+
+   package Compiler is
+      for Default_Switches ("Ada") use ("-gnatwa", "-g", "-gnata", "-gnatq", "-gnatQ", "-gnato", "-gnatf", "-gnatW8");
+   end Compiler;
+
+   package Binder is
+      for Default_Switches ("Ada") use ("-E");
+   end Binder;
+
+   package Builder is
+      for Default_Switches ("Ada") use ("-s");
+      for Executable ("hello6-main.adb") use "hello6";
+   end Builder;
+
+   package Linker is
+      for Default_Switches ("ada") use ("-g") & external ("PPAG_LINKER_FLAGS", "");
+   end Linker;
+
+   package Pretty_Printer is
+      for Default_Switches ("Ada") use ("-M120", "-W8", "--par_threshold=1", "--comments-unchanged", "--decimal-grouping=0");
+   end Pretty_Printer;
+end PPAG;
+
