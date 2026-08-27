@@ -10,7 +10,7 @@ project PPAG is
                  "hello7_session.adb", "hello7_local.adb");
 
    package Compiler is
-      for Default_Switches ("Ada") use ("-gnatwa", "-g", "-gnata", "-gnatq", "-gnatQ", "-gnato", "-gnatf", "-gnatW8");
+      for Default_Switches ("Ada") use ("-gnatwa", "-g", "-gnata", "-gnatq", "-gnatQ", "-gnato", "-gnatf", "-gnatW8", "-gnat2022");
    end Compiler;
 
    package Binder is
